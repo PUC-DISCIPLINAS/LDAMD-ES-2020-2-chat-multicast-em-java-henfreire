@@ -1,4 +1,4 @@
-package com.server;
+package redes;
 
 import java.net.*;
 import java.io.*;
@@ -9,6 +9,7 @@ public class MulticastServer {
 		// args  provê o conteúdo da mensagem e o endereço  do grupo multicast (p. ex. "228.5.6.7")
 		
 		MulticastSocket mSocket = null;
+
 		
 		try {
 			InetAddress groupIp = InetAddress.getByName(args[1]);
