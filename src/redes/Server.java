@@ -1,13 +1,16 @@
 package redes;
+import jdk.nashorn.internal.parser.JSONParser;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class TCPServer {
+public class Server {
 	public static void main(String args[]) {
 
 		ServerSocket listenSocket = null;
@@ -38,10 +41,6 @@ public class TCPServer {
 		}
 	}
 
-	public void showGroups(ArrayList<Group> groups){
-		groups.forEach(group -> System.out.println("Group:" + group.getName()));
-	}
-
 }
 
 class Connection extends Thread {
@@ -61,15 +60,26 @@ class Connection extends Thread {
 	}
 
 	public void run() {
-		try { // servidor de repeti��o
-
+		try {
+			ArrayList <String> groupList = new ArrayList<String>();
 			while (true){
-				String data = in.readUTF(); // le a linha da entrada
-
-				if(data.equals("mostrar grupos"))
+				String data = in.readUTF();
 				System.out.println("Recebido: " + data);
-				out.writeUTF(data);
+
+				String params [] = data.split(",");
+
+				if(params[0].equals("enter")){
+					groupList.add(params[1]);
+					String groupAddress = "228.5.6.7";
+					out.writeUTF(groupAddress);
+				} else if (params[0].equals("exit")){
+					groupList.remove(params[1]);
+				}
+
+				System.out.println("Group List");
+				groupList.forEach(System.out::println);
 			}
+
 		} catch (EOFException e) {
 			System.out.println("EOF:" + e.getMessage());
 		} catch (IOException e) {
