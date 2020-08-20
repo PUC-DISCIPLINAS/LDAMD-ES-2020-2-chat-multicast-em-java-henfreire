@@ -26,13 +26,13 @@ public class Client {
 			groupAddress = data;
 			System.out.println("Group: " + data);
 
+
+
 			actions.enterGroup("*** " + name + " entrou no grupo... ***", groupAddress);
 
+			actions.showMessages();
 			do{
-				actions.showMessages();
-				System.out.println("Digite:");
 				String msg= scan.nextLine();
-
 				if(msg.equals("exit group")){
 					actions.exitGroup();
 					out.writeUTF("exit," + name);
@@ -41,7 +41,6 @@ public class Client {
 				}
 
 			}while (true);
-
 
 		} catch (UnknownHostException e) {
 			System.out.println("Socket:" + e.getMessage());

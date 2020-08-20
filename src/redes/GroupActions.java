@@ -10,6 +10,7 @@ public class GroupActions {
     int port = 6789;
     MulticastSocket mSocket = null;
     InetAddress groupIp;
+    static boolean isFinished = false;
 
     public void enterGroup(String msg, String address) {
         try {
@@ -40,16 +41,21 @@ public class GroupActions {
     }
 
     public void showMessages() {
-        try {
-            byte[] buffer = new byte[1000];
-            DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
-            mSocket.receive(messageIn);
-            System.out.println(new String(messageIn.getData()).trim());
-        } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
-        }
+        //  Starts receiving messages thread
+        Thread thread = new Thread(() -> {
+            try {
+                while (!isFinished) {
+                    byte[] buffer = new byte[1000];
+                    DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length, this.groupIp, this.port);
+                    this.mSocket.receive(messageIn);
+                    String msg = new String(messageIn.getData()).trim();
+                    System.out.println( new String(messageIn.getData()).trim());
+                }
+            } catch (IOException e) {
+                System.out.println("IO: " + e.getMessage());
+            }
+        });
+        thread.start();
     }
 
     public void exitGroup() {

@@ -47,6 +47,7 @@ class Connection extends Thread {
 	DataInputStream in;
 	DataOutputStream out;
 	Socket clientSocket;
+	static ArrayList <String> groupList = new ArrayList<String>();
 
 	public Connection(Socket aClientSocket) {
 		try {
@@ -61,7 +62,7 @@ class Connection extends Thread {
 
 	public void run() {
 		try {
-			ArrayList <String> groupList = new ArrayList<String>();
+
 			while (true){
 				String data = in.readUTF();
 				System.out.println("Recebido: " + data);
