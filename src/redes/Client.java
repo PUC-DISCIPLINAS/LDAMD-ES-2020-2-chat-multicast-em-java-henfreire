@@ -8,11 +8,12 @@ import java.net.*;
 import java.util.Scanner;
 
 public class Client {
+
 	public static void main(String args[]) {
 		Socket s = null;
 		Scanner scan = new Scanner(System.in);
 		String groupAddress;
-		GroupActions actions =  new GroupActions();
+		Group group =  new Group();
 		try {
 			int serverPort = 7896;
 			s = new Socket("localhost", serverPort);
@@ -24,23 +25,23 @@ public class Client {
 			out.writeUTF("enter," + name);
 			String data = in.readUTF();
 			groupAddress = data;
-			System.out.println("Group: " + data);
+			System.out.println("Group: " + groupAddress);
 
+			group.enterGroup(name, groupAddress);
 
-
-			actions.enterGroup("*** " + name + " entrou no grupo... ***", groupAddress);
-
-			actions.showMessages();
+			group.showMessages();
 			do{
 				String msg= scan.nextLine();
 				if(msg.equals("exit group")){
-					actions.exitGroup();
+					group.exitGroup();
 					out.writeUTF("exit," + name);
+					System.out.println("Até mais...");
+					break;
 				}else{
-					actions.sendMessage("[ "+ name + " ] " + msg);
+					group.sendMessage("[ "+ name + " ] " + msg);
 				}
 
-			}while (true);
+			}while (group.isChatting);
 
 		} catch (UnknownHostException e) {
 			System.out.println("Socket:" + e.getMessage());
@@ -52,6 +53,7 @@ public class Client {
 			if (s != null)
 				try {
 					s.close();
+					System.exit(0);
 				} catch (IOException e) {
 					System.out.println("close:" + e.getMessage());
 				}

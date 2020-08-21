@@ -15,7 +15,6 @@ public class Server {
 
 		ServerSocket listenSocket = null;
 
-
 		try {
 			// Porta do servidor
 			int serverPort = 7896;
