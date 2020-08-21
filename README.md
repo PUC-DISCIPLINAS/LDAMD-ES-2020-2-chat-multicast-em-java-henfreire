@@ -3,18 +3,24 @@
 ##Para iniciar
 Acessar diretório /bin
 
-Subir Server: java redes.Server
+**Subir Server:** `java redes.Server`
 
-Subir Client: java redes.Client
+**Subir Client:** `java redes.Client`
 
 Informe seu nome e enviei mensagens para o grupo para sair digite `exit group`.
 
 ###Funcionamento
-Ao iniciar o cliente pede o nome do Usuário e por padrão se conecta com o servidor TCP e envia o comando: `enter,Seu Nome`
+Ao iniciar o cliente pede o nome do Usuário e por padrão se conecta com o **servidor TCP** e envia o comando: `enter,Seu Nome`
 
 O Servidor retorna o endereço do grupo e o cliente entra nesse grupo que usa o prootocolo Multicast.
 
 E podem ser enviadas mensagens normalmente. Para sair do grupo basta escrever `exit group` e o cliente se deconecta do grupo e fecha as conexôes encerrando assim a aplicação.
 
+#### Chat
 
+![2020-08-21 (2)](https://user-images.githubusercontent.com/29661700/90938421-71856080-e3df-11ea-99e0-939fdd024f36.png)
+
+### Server
+
+![2020-08-21 (3)](https://user-images.githubusercontent.com/29661700/90938464-911c8900-e3df-11ea-8348-1d3ed9bd5441.png)
 

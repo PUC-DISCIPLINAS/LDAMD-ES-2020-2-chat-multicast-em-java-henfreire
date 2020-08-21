@@ -48,7 +48,6 @@ public class Group {
                     byte[] buffer = new byte[1000];
                     DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length, this.groupIp, this.port);
                     this.mSocket.receive(messageIn);
-                    String msg = new String(messageIn.getData()).trim();
                     System.out.println( new String(messageIn.getData()).trim());
                 }
             } catch (IOException e) {
